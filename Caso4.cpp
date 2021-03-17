@@ -4,7 +4,7 @@
 #include <cctype>
 #include <time.h>
 using namespace std;
-//[[x1,y1,x2,y2,ancho],[x1,y1,x2,y2,ancho],...]
+//Formato del string modificado: [[x1,y1,x2,y2,ancho],[x1,y1,x2,y2,ancho],...]
 
 //recibe dos puntos y el ancho, retorna un arreglo
 int * createLine(int px1, int py1, int px2, int py2, int pWidth){
@@ -13,30 +13,34 @@ int * createLine(int px1, int py1, int px2, int py2, int pWidth){
 }
 
 //recibe un arreglo y lo modifica de manera que se puedan dibujar líneas con los puntos dentro de cada sub-arreglo
-void designFigure(int pWidth, int **pArray){
+int designFigure(int pWidth, int **pArray){//->agregar alto
+    cout << "aquí1" << endl;
     srand (time(NULL));
     int **lineArray=pArray;
-    int yAxis = 0, randSlope1, randSlope2, YDistance, iterator = 0, yStart, yEnd, xStart, xEnd, hTriangle1, hTriangle2;
-    for (int xAxis = 0; xAxis < pWidth; xAxis += pWidth / 6){
+    int counter=0, yAxis = 0, randSlope1, randSlope2, YDistance, iterator = 0, yStart, yEnd, xStart, xEnd, hTriangle1, hTriangle2;
+    for (int xAxis = 0; yAxis < pWidth; xAxis += pWidth / 6){//->revisar condicion de parada
         //Aquí guardar los puntos del cuadrado
-        if (yAxis >= pWidth){
-            yAxis=0;
+        cout << "aquí2" << endl;
+        if (xAxis >= pWidth){//->reiniciar x aquí
+            xAxis=0;
         }
-        lineArray[iterator]=createLine(xAxis, yAxis, xAxis + pWidth / 6, yAxis, 5);
+        /*lineArray[iterator]=createLine(xAxis, yAxis, xAxis + pWidth / 6, yAxis, 5);
         iterator++;
         lineArray[iterator]=createLine(xAxis, yAxis, xAxis, yAxis + pWidth / 6, 5);
         iterator++;
         lineArray[iterator]=createLine(xAxis, yAxis + pWidth / 6, xAxis + pWidth / 6, yAxis + pWidth / 6, 5);
         iterator++;
         lineArray[iterator]=createLine(xAxis + pWidth / 6, yAxis, xAxis + pWidth / 6, yAxis + pWidth / 6, 5);
-        iterator++;
+        iterator++;*/
         
-        YDistance=rand() % 90 + 1;
+        YDistance=rand() % 50 + 31;
         randSlope1=rand() % 41 - 20;//le puse menos 30 para que la pendiente pueda ser negativa 
         
         //Si la pendiente es negativa
         if (randSlope1<0){
+            cout << "aquí3" << endl;
             for (int internalYAxis = yAxis; yStart < yAxis + pWidth / 6; internalYAxis += YDistance){
+                counter++;
                 randSlope2=rand() % 3 - 1;
                 xStart = xAxis;
                 yStart = internalYAxis+randSlope1;
@@ -58,21 +62,22 @@ void designFigure(int pWidth, int **pArray){
                     yEnd=yAxis + pWidth / 6;
                     xEnd=xStart+ (pWidth / 6) * (hTriangle2 / hTriangle1);
                 }
-
                 lineArray[iterator]=createLine(xStart, yStart, xEnd, yEnd, 5);
                 iterator++;
-
             }
 
         }
         //Si la pendiente es positiva o 0
         else{
-            for (int internalYAxis = 0; yStart < yEnd + pWidth / 6; internalYAxis += YDistance){
+            cout << "aquí4" << endl;
+            for (int internalYAxis = 0; yEnd < yAxis + pWidth / 6; internalYAxis += YDistance){
+                counter++;
                 randSlope2=rand() % 3 - 1;
                 xStart = xAxis;
                 yStart = internalYAxis;
                 yEnd = internalYAxis-randSlope1;
                 xEnd = xAxis + pWidth / 6;
+                cout << "aquí5" << endl;
                 if (yEnd<yAxis){
                     hTriangle1=yStart-yEnd;
                     hTriangle2=yStart-yAxis;
@@ -90,14 +95,20 @@ void designFigure(int pWidth, int **pArray){
                 iterator++;
             }
         }
+        yAxis+= pWidth/6;
     } 
-    return;
+    return counter;
 }
 
 int main()
 {
-    //int* array[500][5];
-
+    int** arrayP[500][5];
+    int count = designFigure(600,**arrayP);
+    
+    for (int i=0; i<count; i++ ){
+        cout << "[" <<arrayP[i][0] << "," << arrayP[i][1] << "," << arrayP[i][2]<< "," << arrayP[i][3]<< "," << arrayP[i][4] << "]"<<endl;
+    }
+    cout << "LineCount:"<< count << endl;
     return 0;
 }
 
