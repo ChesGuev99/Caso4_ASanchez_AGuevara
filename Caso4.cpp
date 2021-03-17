@@ -13,10 +13,10 @@ int * createLine(int px1, int py1, int px2, int py2, int pWidth){
 }
 
 //recibe un arreglo y lo modifica de manera que se puedan dibujar líneas con los puntos dentro de cada sub-arreglo
-int designFigure(int pWidth, int **pArray){//->agregar alto
+int designFigure(int pWidth, int pArray[50][5]){//->agregar alto
     cout << "aquí1" << endl;
     srand (time(NULL));
-    int **lineArray=pArray;
+    int* lineArray=pArray[0];
     int counter=0, yAxis = 0, randSlope1, randSlope2, YDistance, iterator = 0, yStart, yEnd, xStart, xEnd, hTriangle1, hTriangle2;
     for (int xAxis = 0; yAxis < pWidth; xAxis += pWidth / 6){//->revisar condicion de parada
         //Aquí guardar los puntos del cuadrado
@@ -62,7 +62,8 @@ int designFigure(int pWidth, int **pArray){//->agregar alto
                     yEnd=yAxis + pWidth / 6;
                     xEnd=xStart+ (pWidth / 6) * (hTriangle2 / hTriangle1);
                 }
-                lineArray[iterator]=createLine(xStart, yStart, xEnd, yEnd, 5);
+                int line[5] = {xStart, yStart, xEnd, yEnd, 5};
+                lineArray[iterator]=*line;
                 iterator++;
             }
 
@@ -89,9 +90,11 @@ int designFigure(int pWidth, int **pArray){//->agregar alto
                     hTriangle2=(yAxis + pWidth / 6) - yEnd;
 
                     yStart=(yAxis + pWidth / 6);
-                    xStart += (pWidth/6) * (hTriangle2/hTriangle1);  
+                    xStart += (pWidth/6) * (hTriangle2/hTriangle1);  // Divisiones /0 
                 }
-                lineArray[iterator]=createLine(xStart, yStart, xEnd, yEnd, 5);
+                int line[5] = {xStart, yStart, xEnd, yEnd, 5};      // 3 tiempos + 5 vs 5 tiempos? la cosa es que gasta menos tiempos
+                                                                    // .... y no logré arreglar un bug en la funcion
+                lineArray[iterator]=*line;
                 iterator++;
             }
         }
@@ -102,10 +105,10 @@ int designFigure(int pWidth, int **pArray){//->agregar alto
 
 int main()
 {
-    int** arrayP[500][5];
-    int count = designFigure(600,**arrayP);
-    
-    for (int i=0; i<count; i++ ){
+    int arrayP[50][5];
+    int count = designFigure(600,arrayP);
+    cout << arrayP[0][0];
+    for (int i=0; i<50; i++ ){
         cout << "[" <<arrayP[i][0] << "," << arrayP[i][1] << "," << arrayP[i][2]<< "," << arrayP[i][3]<< "," << arrayP[i][4] << "]"<<endl;
     }
     cout << "LineCount:"<< count << endl;
