@@ -90,7 +90,7 @@ void designFigure(int pWidth, int **pArray){
                 iterator++;
             }
         }
-    } 
+    }
     return;
 }
 
