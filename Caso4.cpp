@@ -13,71 +13,69 @@ using namespace std;
 }
 */
 //recibe un arreglo y lo modifica de manera que se puedan dibujar líneas con los puntos dentro de cada sub-arreglo
-int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
+int designFigure(int pWidth,int pHeight, int plineArray[400][5]){//->agregar alto
     srand (time(NULL));
-    //int* lineArray=*pArray;
-    int counter=0, yAxis = 0, randSlope1, randSlope2, YDistance, iterator = 0, yStart, yEnd, xStart, xEnd, hTriangle1, hTriangle2;
-    for (int xAxis = 0; yAxis < pWidth; xAxis += pWidth / 6){//->revisar condicion de parada
+
+    int counter=0, yAxis = 0, thickness, randSlope1, randSlope2, YDistance, iterator = 0, yStart, yEnd, xStart, xEnd, hTriangle1, hTriangle2;
+    for (int xAxis = 0; yAxis < pHeight; xAxis += pWidth / 6){//->revisar condicion de parada
         //Aquí guardar los puntos del cuadrado
         if (xAxis >= pWidth){//->reiniciar x aquí
             xAxis=0;
-            yAxis+= pWidth/6;
+            yAxis+= pHeight/6;
         }
-        if (yAxis >= pWidth){
+        
+        if (yAxis >= pHeight){
             break;
         }
         
-        YDistance=rand() % 20 + 5;
-        randSlope1=rand() % 13 - 6;//le puse menos 30 para que la pendiente pueda ser negativa 
+        //YDistance=rand() % 20 + 5;
+        //randSlope1=rand() % 13 - 6;//le puse menos 30 para que la pendiente pueda ser negativa 
+        YDistance=rand() % ((pHeight/6)/6) + ((pHeight/6)/12);
+        randSlope1=rand() % ((pHeight/6)/12) - ((pHeight/6)/24);
+        thickness=rand() % ((pHeight/6)/35)+1;
 
         yStart=yAxis;
         yEnd=yAxis;
         xStart=xAxis;
         xEnd=xAxis+pWidth/6;
-        //Si la pendiente es negativa
-        cout << "nuevoCuadro" << endl;
+        
         if (randSlope1<0){
-            for (int internalYAxis = yAxis; yStart < yAxis + pWidth / 6; internalYAxis += YDistance){
+            for (int internalYAxis = yAxis; yStart < yAxis + pHeight / 6; internalYAxis += YDistance){
                 counter++;
-                randSlope2=rand() % 3 - 1;
-                
+                randSlope2=rand() % ((pHeight/6)/35)+1;
                 //se calcula la intersección con el borde del cuadrado por medio de triángulos (no sé cómo se llama el teorema pero es como dibujar un triángulo rectángulo dentro del otro, divido la altura del pequeño entre al del grande y lo multiplico por la base del grande para obtenetr la base del pequeño)
                 if (yStart < yAxis){
                     hTriangle1=yEnd-yStart;
                     hTriangle2=yEnd-yAxis;
-                    //cout << "sale por arriba start: " << yStart << endl;
+
                     yStart= yAxis;
                     xStart = xEnd - (pWidth / 6) * (hTriangle2 / hTriangle1);
                 }
-                else if (yEnd > yAxis + pWidth / 6){
+                else if (yEnd > yAxis + pHeight / 6){
                     hTriangle1=yEnd-yStart;
-                    hTriangle2=(yAxis+pWidth/6)-yStart;
-                    //cout << "sale por abajo end: " << yEnd << endl;
-                    yEnd=yAxis + pWidth / 6;
+                    hTriangle2=(yAxis+pHeight/6)-yStart;
+                    
+                    yEnd=yAxis + pHeight / 6;
                     xEnd=xStart+ (pWidth / 6) * (hTriangle2 / hTriangle1);
                 }
                 
-                //cout << "checkpoint ystart: " << yStart << endl;
-                //cout << "checkpoint yend: " << yEnd << endl;
-                //int line[5] = {xStart, yStart, xEnd, yEnd, 5};
-                lineArray[iterator][0]=xStart;
-                lineArray[iterator][1]=yStart;
-                lineArray[iterator][2]=xEnd;
-                lineArray[iterator][3]=yEnd;
-                lineArray[iterator][4]=5;
-                //cout << "P negativa: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
+                plineArray[iterator][0]=xStart;
+                plineArray[iterator][1]=yStart;
+                plineArray[iterator][2]=xEnd;
+                plineArray[iterator][3]=yEnd;
+                plineArray[iterator][4]=thickness;
 
+                xStart=xAxis;
                 iterator++;
-                yStart = internalYAxis + randSlope1;
+                yStart = internalYAxis + randSlope1+ randSlope2;
                 yEnd = internalYAxis;
             }
 
         }
-        //Si la pendiente es positiva o 0
         else{
-            for (int internalYAxis = yAxis; yEnd < yAxis + pWidth / 6; internalYAxis += YDistance){
+            for (int internalYAxis = yAxis; yEnd < yAxis + pHeight / 6; internalYAxis += YDistance){
                 counter++;
-                randSlope2=rand() % 3 - 1;
+                randSlope2=rand() % ((pHeight/6)/35)+1;
                 
                 if (randSlope1!=0){
                     if (yEnd<yAxis){
@@ -87,25 +85,22 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
                         yEnd = yAxis;
                         xEnd -= (pWidth / 6) * (hTriangle2 / hTriangle1);
                     }
-                    else if (yStart > yAxis + pWidth / 6){
+                    else if (yStart > yAxis + pHeight / 6){
                         hTriangle1=yStart - yEnd;
-                        hTriangle2=(yAxis + pWidth / 6) - yEnd;
+                        hTriangle2=(yAxis + pHeight / 6) - yEnd;
 
-                        yStart=(yAxis + pWidth / 6);
+                        yStart=(yAxis + pHeight / 6);
                         xStart += (pWidth/6) * (hTriangle2/hTriangle1);  // Divisiones /0 
                     }
                 }
-                      // 3 tiempos + 5 vs 5 tiempos? la cosa es que gasta menos tiempos
-                                                                    // .... y no logré arreglar un bug en la funcion
-                lineArray[iterator][0]=xStart;
-                lineArray[iterator][1]=yStart;
-                lineArray[iterator][2]=xEnd;
-                lineArray[iterator][3]=yEnd;
-                lineArray[iterator][4]=5;
-                //cout << "P positiva: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
-
+                
+                plineArray[iterator][0]=xStart;
+                plineArray[iterator][1]=yStart;
+                plineArray[iterator][2]=xEnd;
+                plineArray[iterator][3]=yEnd;
+                plineArray[iterator][4]=thickness;
                 iterator++;
-                yEnd = internalYAxis - randSlope1;
+                yEnd = internalYAxis - randSlope1 + randSlope2;
                 yStart = internalYAxis;
             }
         }
@@ -117,13 +112,13 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
 int main()
 {
     int arrayP[400][5];
-    int count = designFigure(600,arrayP);
-    //cout << arrayP[0][0];
+    int count = designFigure(600,600,arrayP);
     for (int i=0; i<count; i++ ){
-        cout << "[" <<arrayP[i][0] << "," << arrayP[i][1] << "," << arrayP[i][2]<< "," << arrayP[i][3]<< "," << arrayP[i][4] << "]"<<endl;
+        cout << "{" <<arrayP[i][0] << "," << arrayP[i][1] << "," << arrayP[i][2]<< "," << arrayP[i][3]<< "," << arrayP[i][4] << "}" << ","<<endl;
     }
     cout << "LineCount:"<< count << endl;
     return 0;
+
 }
 
 
