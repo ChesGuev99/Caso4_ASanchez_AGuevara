@@ -45,14 +45,14 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
                 if (yStart < yAxis){
                     hTriangle1=yEnd-yStart;
                     hTriangle2=yEnd-yAxis;
-                    cout << "sale por arriba start: " << yStart << endl;
+                    //cout << "sale por arriba start: " << yStart << endl;
                     yStart= yAxis;
                     xStart = xEnd - (pWidth / 6) * (hTriangle2 / hTriangle1);
                 }
                 else if (yEnd > yAxis + pWidth / 6){
                     hTriangle1=yEnd-yStart;
                     hTriangle2=(yAxis+pWidth/6)-yStart;
-                    cout << "sale por abajo end: " << yEnd << endl;
+                    //cout << "sale por abajo end: " << yEnd << endl;
                     yEnd=yAxis + pWidth / 6;
                     xEnd=xStart+ (pWidth / 6) * (hTriangle2 / hTriangle1);
                 }
@@ -65,7 +65,7 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
                 lineArray[iterator][2]=xEnd;
                 lineArray[iterator][3]=yEnd;
                 lineArray[iterator][4]=5;
-                cout << "P negativa: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
+                //cout << "P negativa: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
 
                 iterator++;
                 yStart = internalYAxis + randSlope1;
@@ -102,7 +102,7 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
                 lineArray[iterator][2]=xEnd;
                 lineArray[iterator][3]=yEnd;
                 lineArray[iterator][4]=5;
-                cout << "P positiva: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
+                //cout << "P positiva: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
 
                 iterator++;
                 yEnd = internalYAxis - randSlope1;
@@ -119,9 +119,9 @@ int main()
     int arrayP[400][5];
     int count = designFigure(600,arrayP);
     //cout << arrayP[0][0];
-    /*for (int i=0; i<count; i++ ){
+    for (int i=0; i<count; i++ ){
         cout << "[" <<arrayP[i][0] << "," << arrayP[i][1] << "," << arrayP[i][2]<< "," << arrayP[i][3]<< "," << arrayP[i][4] << "]"<<endl;
-    }*/
+    }
     cout << "LineCount:"<< count << endl;
     return 0;
 }
