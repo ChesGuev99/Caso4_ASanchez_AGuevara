@@ -23,21 +23,24 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
             xAxis=0;
             yAxis+= pWidth/6;
         }
+        if (yAxis >= pWidth){
+            break;
+        }
         
         YDistance=rand() % 20 + 5;
-        randSlope1=rand() % 7 - 6;//le puse menos 30 para que la pendiente pueda ser negativa 
+        randSlope1=rand() % 13 - 6;//le puse menos 30 para que la pendiente pueda ser negativa 
 
         yStart=yAxis;
         yEnd=yAxis;
         xStart=xAxis;
         xEnd=xAxis+pWidth/6;
         //Si la pendiente es negativa
+        cout << "nuevoCuadro" << endl;
         if (randSlope1<0){
             for (int internalYAxis = yAxis; yStart < yAxis + pWidth / 6; internalYAxis += YDistance){
                 counter++;
                 randSlope2=rand() % 3 - 1;
-                yStart = internalYAxis + randSlope1;
-                yEnd = internalYAxis;
+                
                 //se calcula la intersección con el borde del cuadrado por medio de triángulos (no sé cómo se llama el teorema pero es como dibujar un triángulo rectángulo dentro del otro, divido la altura del pequeño entre al del grande y lo multiplico por la base del grande para obtenetr la base del pequeño)
                 if (yStart < yAxis){
                     hTriangle1=yEnd-yStart;
@@ -62,8 +65,11 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
                 lineArray[iterator][2]=xEnd;
                 lineArray[iterator][3]=yEnd;
                 lineArray[iterator][4]=5;
+                cout << "P negativa: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
 
                 iterator++;
+                yStart = internalYAxis + randSlope1;
+                yEnd = internalYAxis;
             }
 
         }
@@ -72,8 +78,7 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
             for (int internalYAxis = yAxis; yEnd < yAxis + pWidth / 6; internalYAxis += YDistance){
                 counter++;
                 randSlope2=rand() % 3 - 1;
-                yEnd = internalYAxis - randSlope1;
-                yStart = internalYAxis;
+                
                 if (randSlope1!=0){
                     if (yEnd<yAxis){
                         hTriangle1=yStart-yEnd;
@@ -97,7 +102,11 @@ int designFigure(int pWidth, int lineArray[400][5]){//->agregar alto
                 lineArray[iterator][2]=xEnd;
                 lineArray[iterator][3]=yEnd;
                 lineArray[iterator][4]=5;
+                cout << "P positiva: [" <<lineArray[iterator][0] << "," << lineArray[iterator][1] << "," << lineArray[iterator][2]<< "," << lineArray[iterator][3]<< "," << lineArray[iterator][4] << "]"<<endl;
+
                 iterator++;
+                yEnd = internalYAxis - randSlope1;
+                yStart = internalYAxis;
             }
         }
         
@@ -110,9 +119,9 @@ int main()
     int arrayP[400][5];
     int count = designFigure(600,arrayP);
     //cout << arrayP[0][0];
-    for (int i=0; i<count; i++ ){
+    /*for (int i=0; i<count; i++ ){
         cout << "[" <<arrayP[i][0] << "," << arrayP[i][1] << "," << arrayP[i][2]<< "," << arrayP[i][3]<< "," << arrayP[i][4] << "]"<<endl;
-    }
+    }*/
     cout << "LineCount:"<< count << endl;
     return 0;
 }
