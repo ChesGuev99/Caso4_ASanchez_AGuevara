@@ -14,7 +14,7 @@ El algoritmo toma una matriz de 6 filas x 6 columnas, en cada una de las casilla
 
 En este caso, el patrón a reproducir es el siguiente:
 
-![Patron a reproducir](Imgs/patronDado.png)\
+![Patron a reproducir](Imgs/patronDado.png)
 
 ##### Ejemplos:
 Aqui podemos ver los diferentes patrones generados utilizando el codigo.
@@ -45,7 +45,7 @@ Podemos encontrar un análisis y conteo de cada sección del código en el archi
 
 ##### Opcional: Prueba en Processing
 
-Para generar el patrón podemos utilizar el código [linesforList.pde](linesforList.pde) y remplazar el parámetro lines con el resultado obtenido al correr el algorimo en [Caso4.cpp](Caso4.cpp).
+Para generar el patrón podemos utilizar el código [linesforList.pde](linesforList/linesforList.pde) y remplazar el parámetro lines con el resultado obtenido al correr el algorimo en [Caso4.cpp](Caso4.cpp).
 
 ```
 int[][] lines= {contenido del caso4.cpp}
