@@ -2,7 +2,7 @@
 
 | Integrantes               | Carnet     |
 |---------------------------|------------|
-| Andrés Sánchez Rojas      | 2018102514 |
+| Andrés Sánchez Rojas      | 2018100180 |
 | Ana María Guevara Roselló | 2018102514 |
 
 
@@ -19,10 +19,12 @@ En este caso, el patrón a reproducir es el siguiente:
 ##### Ejemplos:
 Aqui podemos ver los diferentes patrones generados utilizando el codigo.
 En el primer ejemplo podemos ver un patron con el código modificado para obtener lineas más distanciadas y de menor inclinación:
-![Patron generado 1](Imgs/prueba1.png)
+![Patron generado 1](Imgs/Prueba1.png)
 
 En este ejemplo podemos ver un patron con menor distancia entre las lineas y mayor inclinación:
 ![Patron generado 2](Imgs/prueba5.png)
+
+Podemos encontrar más pruebas, dentro de la carpeta Imgs.
 
 
 #### Análisis del O(n):
