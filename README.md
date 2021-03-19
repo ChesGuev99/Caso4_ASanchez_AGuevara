@@ -45,7 +45,7 @@ Podemos encontrar un análisis y conteo de cada sección del código en el archi
 
 ##### Opcional: Prueba en Processing
 
-Para generar el patrón podemos utilizar el código [linesforList.pde](linesforList/linesforList.pde) y remplazar el parámetro lines con el resultado obtenido al correr el algorimo en [Caso4.cpp](Caso4.cpp).
+Para generar el patrón podemos utilizar el código [linesforList.pde](linesforList/linesforList.pde) y remplazar el parámetro lines con el resultado obtenido al correr el algorimo en [Caso4.cpp](Caso4.cpp) (exceptuando la última , ).
 
 ```
 int[][] lines= {contenido del caso4.cpp}
